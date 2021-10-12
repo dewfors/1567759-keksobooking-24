@@ -165,7 +165,6 @@ const createObject = (id = 1) => {
 const objects = [];
 
 const createObjects = () => {
-  // eslint-disable-next-line id-length
   for (let i = 1; i <= 10; i++) {
     objects.push(createObject(i));
   }
