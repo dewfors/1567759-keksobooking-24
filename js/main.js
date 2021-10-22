@@ -1,5 +1,5 @@
 import './similar-offers.js';
-import {disableForms, enableForms} from './form.js';
+import {toggleFormState} from './form.js';
 
 import {
   createObjects
@@ -7,6 +7,5 @@ import {
 
 createObjects();
 
-disableForms();
-
-setTimeout(() => {enableForms();}, 2000);
+toggleFormState(true);
+setTimeout(() => {toggleFormState(false);}, 2000);
