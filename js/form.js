@@ -22,5 +22,21 @@ const toggleFormState = (isDisabled) => {
 
 };
 
+const form = document.querySelector('form.ad-form');
+const title = form.querySelector('#title');
+const price = form.querySelector('#price');
+const capacity = form.querySelector('#capacity');
 
-export {toggleFormState};
+
+const formSubmit = () => {
+  form.addEventListener('submit', (evt) => {
+    evt.preventDefault();
+
+    if (title.checkValidity() === false || price.checkValidity() === false || capacity.checkValidity() === false) {
+      return null;
+    }
+
+  });
+};
+
+export {toggleFormState, formSubmit};
