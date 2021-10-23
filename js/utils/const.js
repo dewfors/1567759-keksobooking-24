@@ -6,6 +6,16 @@ const OfferType = {
   hotel: 'Отель',
 };
 
+const MinPriceByOfferType = {
+  flat: 1000,
+  bungalow: 0,
+  house: 5000,
+  palace: 10000,
+  hotel: 3000,
+};
+
+
 export {
-  OfferType
+  OfferType,
+  MinPriceByOfferType
 };
