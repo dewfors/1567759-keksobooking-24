@@ -1,4 +1,4 @@
-import {MinPriceByOfferType} from './utils/const.js';
+import {MinPriceByOfferType, ElementsClassNames} from './utils/const.js';
 
 const TITLE_MIN_LENGTH = 30;
 const TITLE_MAX_LENGTH = 100;
@@ -6,16 +6,19 @@ const TITLE_LENGTH_ERROR_MESSAGE = `Заголовок должен быть о�
 const PRICE_MAX = 1000000;
 const ROOMS_MAX = 100;
 const CAPACITY_NOT_FOR_GUEST = 0;
-const ERROR_STATE = 'error-field';
+const ERROR_STATE = ElementsClassNames.errorState;
 
 let priceMin = 1000;
-
-const form = document.querySelector('form.ad-form');
-const title = form.querySelector('#title');
-const price = form.querySelector('#price');
-const type = form.querySelector('#type');
-const roomNumber = form.querySelector('#room_number');
-const capacity = form.querySelector('#capacity');
+const form = document.querySelector(ElementsClassNames.formOffer);
+const title = form.querySelector(ElementsClassNames.formTitle);
+const price = form.querySelector(ElementsClassNames.formPrice);
+const type = form.querySelector(ElementsClassNames.formType);
+const roomNumber = form.querySelector(ElementsClassNames.formRoomNumber);
+const capacity = form.querySelector(ElementsClassNames.formCapacity);
+const checkLengthTitle = (value, minLength, maxLength) => value.length >= minLength && value.length <= maxLength;
+const getPriceErrorMessage = () => `Цена должна быть от ${priceMin} до ${PRICE_MAX}`;
+const checkLengthPrice = (value, min, max) => value >= min && value <= max;
+const getCapacityErrorMessage = (capacityText, roomCount) => `${roomCount} комната(ы) не подходит ${capacityText}`;
 
 const showValidationMessage = (element, message) => {
   element.setCustomValidity(message);
@@ -25,8 +28,6 @@ const hideValidationMessage = (element) => {
   element.setCustomValidity('');
   element.classList.remove(ERROR_STATE);
 };
-
-const checkLengthTitle = (value, minLength, maxLength) => value.length >= minLength && value.length <= maxLength;
 
 const onCheckValidityTitle = () => {
   if (!checkLengthTitle(title.value, TITLE_MIN_LENGTH, TITLE_MAX_LENGTH)) {
@@ -38,10 +39,6 @@ const onCheckValidityTitle = () => {
 };
 
 title.addEventListener('input', onCheckValidityTitle);
-
-const getPriceErrorMessage = () => `Цена должна быть от ${priceMin} до ${PRICE_MAX}`;
-
-const checkLengthPrice = (value, min, max) => value >= min && value <= max;
 
 const onCheckValidityPrice = () => {
   if (!checkLengthPrice(price.value, priceMin, PRICE_MAX)) {
@@ -62,8 +59,6 @@ const onchangeTypeOffer = (evt) => {
   priceMin = MinPriceByOfferType[selectedValue];
 };
 type.addEventListener('change', onchangeTypeOffer);
-
-const getCapacityErrorMessage = (capacityText, roomCount) => `${roomCount} комната(ы) не подходит ${capacityText}`;
 
 const onchangeCapacity = (evt) => {
   const selectedIndexCapacity = evt.target.options.selectedIndex;
@@ -86,3 +81,5 @@ const onchangeCapacity = (evt) => {
 };
 
 capacity.addEventListener('change', onchangeCapacity);
+
+export {form, title, price, capacity};

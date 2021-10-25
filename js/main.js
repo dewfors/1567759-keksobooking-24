@@ -1,6 +1,7 @@
 import './similar-offers.js';
 import {toggleFormState, formSubmit} from './form.js';
 import './form-offer-validate.js';
+import {form, title, price, capacity} from './form-offer-validate.js';
 
 import {
   createObjects
@@ -11,4 +12,4 @@ createObjects();
 toggleFormState(true);
 setTimeout(() => {toggleFormState(false);}, 2000);
 
-formSubmit();
+formSubmit(form, title, price, capacity);
