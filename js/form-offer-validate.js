@@ -15,6 +15,8 @@ const price = form.querySelector(ElementsClassNames.formPrice);
 const type = form.querySelector(ElementsClassNames.formType);
 const roomNumber = form.querySelector(ElementsClassNames.formRoomNumber);
 const capacity = form.querySelector(ElementsClassNames.formCapacity);
+const timeIn = form.querySelector(ElementsClassNames.formTimeIn);
+const timeOut = form.querySelector(ElementsClassNames.formTimeOut);
 const checkLengthTitle = (value, minLength, maxLength) => value.length >= minLength && value.length <= maxLength;
 const getPriceErrorMessage = () => `Цена должна быть от ${priceMin} до ${PRICE_MAX}`;
 const checkLengthPrice = (value, min, max) => value >= min && value <= max;
@@ -57,6 +59,8 @@ const onchangeTypeOffer = (evt) => {
 
   price.placeholder = MinPriceByOfferType[selectedValue];
   priceMin = MinPriceByOfferType[selectedValue];
+
+  onCheckValidityPrice();
 };
 type.addEventListener('change', onchangeTypeOffer);
 
@@ -81,5 +85,16 @@ const onchangeCapacity = (evt) => {
 };
 
 capacity.addEventListener('change', onchangeCapacity);
+
+const onchangeTimeIn = (evt, time) => {
+  time.selectedIndex = evt.target.options.selectedIndex;
+};
+
+timeIn.addEventListener('change', (evt) => {
+  onchangeTimeIn(evt, timeOut);
+});
+timeOut.addEventListener('change', (evt) => {
+  onchangeTimeIn(evt, timeIn);
+});
 
 export {form, title, price, capacity};

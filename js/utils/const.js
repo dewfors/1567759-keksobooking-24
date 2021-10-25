@@ -22,6 +22,8 @@ const ElementsClassNames = {
   formType: '#type',
   formRoomNumber: '#room_number',
   formCapacity: '#capacity',
+  formTimeIn: '#timein',
+  formTimeOut: '#timeout',
   formDisabled: 'ad-form--disabled',
   filtersDisabled: 'map__filters--disabled',
 };
