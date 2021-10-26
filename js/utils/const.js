@@ -14,8 +14,23 @@ const MinPriceByOfferType = {
   hotel: 3000,
 };
 
+const ElementsClassNames = {
+  errorState: 'error-field',
+  formOffer: 'form.ad-form',
+  formTitle: '#title',
+  formPrice: '#price',
+  formType: '#type',
+  formRoomNumber: '#room_number',
+  formCapacity: '#capacity',
+  formTimeIn: '#timein',
+  formTimeOut: '#timeout',
+  formDisabled: 'ad-form--disabled',
+  filtersDisabled: 'map__filters--disabled',
+};
+
 
 export {
   OfferType,
-  MinPriceByOfferType
+  MinPriceByOfferType,
+  ElementsClassNames
 };
