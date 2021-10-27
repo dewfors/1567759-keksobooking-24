@@ -6,6 +6,29 @@ const CITY_INFO = {
   ZOOM: 10,
 };
 
+const MARKER = {
+  MAIN: {
+    WIDTH: 52,
+    HEIGHT: 52,
+    getSize () {
+      return [this.WIDTH, this.HEIGHT];
+    },
+    getAnchor () {
+      return [this.WIDTH / 2, this.HEIGHT];
+    },
+  },
+  DEFAULT: {
+    WIDTH: 40,
+    HEIGHT: 40,
+    getSize () {
+      return [this.WIDTH, this.HEIGHT];
+    },
+    getAnchor () {
+      return [this.WIDTH / 2, this.HEIGHT];
+    },
+  },
+};
+
 const OfferType = {
   flat: 'Квартира',
   bungalow: 'Бунгало',
@@ -32,6 +55,7 @@ const ElementsClassNames = {
   formCapacity: '#capacity',
   formTimeIn: '#timein',
   formTimeOut: '#timeout',
+  formAddress: '#address',
 };
 
 const ElementsStatusClassNames = {
@@ -42,6 +66,7 @@ const ElementsStatusClassNames = {
 
 export {
   CITY_INFO,
+  MARKER,
   OfferType,
   MinPriceByOfferType,
   ElementsClassNames,
