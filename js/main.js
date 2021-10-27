@@ -1,15 +1,12 @@
 import './similar-offers.js';
-import {toggleFormState, formSubmit} from './form.js';
+import {formSubmit} from './form.js';
 import './form-offer-validate.js';
 import {form, title, price, capacity} from './form-offer-validate.js';
+import {createObjects} from './utils/data.js';
+import {initMap} from './map.js';
 
-import {
-  createObjects
-} from './utils/data.js';
-
-createObjects();
-
-toggleFormState(true);
-setTimeout(() => {toggleFormState(false);}, 2000);
+const offers = createObjects();
 
 formSubmit(form, title, price, capacity);
+
+initMap(offers);

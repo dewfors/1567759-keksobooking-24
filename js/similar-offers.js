@@ -1,19 +1,8 @@
-import {
-  createObjects
-} from './utils/data.js';
+import {OfferType} from './utils/const.js';
 
-import {
-  OfferType
-} from './utils/const.js';
-
-const similarOffers = createObjects();
-
-const cardListElement = document.querySelector('#map-canvas');
 const cardTemplate = document.querySelector('#card')
   .content
   .querySelector('.popup');
-
-const cardListFragment = document.createDocumentFragment();
 
 const createOfferFeaturesListElement = (feature) => {
   const newFeatureElement = document.createElement('li');
@@ -94,7 +83,6 @@ const createCardElement = (ad) => {
     }
 
     for (const [key, value] of Object.entries(offer)) {
-
       switch (key) {
         case 'price':
           cardElement.querySelector(`[data-card='${key}']`).textContent = `${price} ₽/ночь`;
@@ -130,11 +118,12 @@ const createCardElement = (ad) => {
           break;
       }
     }
-    cardListFragment.appendChild(cardElement);
-
   }
   removeEmptyHtmlElements(cardElement);
+
+  return cardElement;
 };
 
-createCardElement(similarOffers[1]);
-cardListElement.appendChild(cardListFragment);
+const createCardList = (data) => data.map(createCardElement);
+
+export {createCardList};

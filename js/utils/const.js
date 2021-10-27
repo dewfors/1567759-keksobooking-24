@@ -1,3 +1,34 @@
+const CITY_INFO = {
+  LOCATION: {
+    LAT: 35.6895,
+    LNG: 139.69171,
+  },
+  ZOOM: 10,
+};
+
+const MARKER = {
+  MAIN: {
+    WIDTH: 52,
+    HEIGHT: 52,
+    getSize () {
+      return [this.WIDTH, this.HEIGHT];
+    },
+    getAnchor () {
+      return [this.WIDTH / 2, this.HEIGHT];
+    },
+  },
+  DEFAULT: {
+    WIDTH: 40,
+    HEIGHT: 40,
+    getSize () {
+      return [this.WIDTH, this.HEIGHT];
+    },
+    getAnchor () {
+      return [this.WIDTH / 2, this.HEIGHT];
+    },
+  },
+};
+
 const OfferType = {
   flat: 'Квартира',
   bungalow: 'Бунгало',
@@ -24,13 +55,20 @@ const ElementsClassNames = {
   formCapacity: '#capacity',
   formTimeIn: '#timein',
   formTimeOut: '#timeout',
+  formAddress: '#address',
+};
+
+const ElementsStatusClassNames = {
   formDisabled: 'ad-form--disabled',
   filtersDisabled: 'map__filters--disabled',
 };
 
 
 export {
+  CITY_INFO,
+  MARKER,
   OfferType,
   MinPriceByOfferType,
-  ElementsClassNames
+  ElementsClassNames,
+  ElementsStatusClassNames
 };
