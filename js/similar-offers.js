@@ -94,7 +94,6 @@ const createCardElement = (ad) => {
     }
 
     for (const [key, value] of Object.entries(offer)) {
-
       switch (key) {
         case 'price':
           cardElement.querySelector(`[data-card='${key}']`).textContent = `${price} ₽/ночь`;
@@ -130,11 +129,18 @@ const createCardElement = (ad) => {
           break;
       }
     }
-    cardListFragment.appendChild(cardElement);
+    // cardListFragment.appendChild(cardElement);
 
   }
   removeEmptyHtmlElements(cardElement);
+
+  return cardElement;
 };
 
 // createCardElement(similarOffers[1]);
 // cardListElement.appendChild(cardListFragment);
+
+const createCardList = (data) => data.map(createCardElement);
+
+
+export {createCardList};

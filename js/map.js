@@ -1,6 +1,7 @@
 import {toggleFormState} from './form.js';
 import {CITY_INFO, MARKER} from './utils/const.js';
 import {onChangeAddress} from './form-offer-validate.js';
+import {createCardList} from './similar-offers.js';
 
 toggleFormState(true);
 
@@ -56,7 +57,7 @@ const createMainMarker = (markerLat, markerLng) => {
   marker.on('move', onMarkerMove);
 };
 
-const createMarker = (lat, lng) => {
+const createMarker = (lat, lng, popup) => {
   L.marker(
     {
       lat: lat,
@@ -66,17 +67,20 @@ const createMarker = (lat, lng) => {
       draggable: false,
       icon: defaultMarkerIcon,
     },
-  ).addTo(map);
+  )
+    .addTo(map)
+    .bindPopup(popup);
 };
 
 const initMap = (data) => {
   createMainMarker(CITY_INFO.LOCATION.LAT, CITY_INFO.LOCATION.LNG);
 
+  const cardList = createCardList(data);
+
   data.forEach((item, index) => {
     const {lat, lng} = item.location;
-    createMarker(lat, lng);
-  })
-
+    createMarker(lat, lng, cardList[index]);
+  });
 };
 
 export {initMap};
