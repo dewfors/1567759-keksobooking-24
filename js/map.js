@@ -6,7 +6,6 @@ import {createCardList} from './similar-offers.js';
 toggleFormState(true);
 
 const onMapLoad = () => {
-  console.log('карта инициализирована');
   toggleFormState(false);
 };
 

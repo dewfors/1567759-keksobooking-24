@@ -1,9 +1,6 @@
 import {ElementsStatusClassNames} from './utils/const.js';
 
 const toggleFormState = (isDisabled = true) => {
-
-  console.log('isDisabled', isDisabled);
-
   const formOffer = document.querySelector('form[data-form-offer=form-access]');
   const formOfferFieldsets = formOffer.children;
 
@@ -19,7 +16,6 @@ const toggleFormState = (isDisabled = true) => {
   }
 
   [...formOfferFieldsets, ...formFilterFields].forEach((fieldset) => fieldset.disabled = isDisabled);
-
 };
 
 const formSubmit = (form, title, price, capacity) => {
