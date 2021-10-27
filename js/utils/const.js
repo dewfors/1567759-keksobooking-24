@@ -24,6 +24,9 @@ const ElementsClassNames = {
   formCapacity: '#capacity',
   formTimeIn: '#timein',
   formTimeOut: '#timeout',
+};
+
+const ElementsStatusClassNames = {
   formDisabled: 'ad-form--disabled',
   filtersDisabled: 'map__filters--disabled',
 };
@@ -32,5 +35,6 @@ const ElementsClassNames = {
 export {
   OfferType,
   MinPriceByOfferType,
-  ElementsClassNames
+  ElementsClassNames,
+  ElementsStatusClassNames
 };

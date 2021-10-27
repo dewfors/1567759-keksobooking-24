@@ -1,4 +1,4 @@
-import {ElementsClassNames} from './utils/const.js';
+import {ElementsClassNames, ElementsStatusClassNames} from './utils/const.js';
 
 const toggleFormState = (isDisabled = true) => {
   const formOffer = document.querySelector('form[data-form-offer=form-access]');
@@ -8,11 +8,11 @@ const toggleFormState = (isDisabled = true) => {
   const formFilterFields = formFilter.children;
 
   if (isDisabled) {
-    formOffer.classList.add(ElementsClassNames.formDisabled);
-    formFilter.classList.add(ElementsClassNames.filtersDisabled);
+    formOffer.classList.add(ElementsStatusClassNames.formDisabled);
+    formFilter.classList.add(ElementsStatusClassNames.filtersDisabled);
   } else {
-    formOffer.classList.remove(ElementsClassNames.formDisabled);
-    formFilter.classList.remove(ElementsClassNames.filtersDisabled);
+    formOffer.classList.remove(ElementsStatusClassNames.formDisabled);
+    formFilter.classList.remove(ElementsStatusClassNames.filtersDisabled);
   }
 
   [...formOfferFieldsets, ...formFilterFields].forEach((fieldset) => fieldset.disabled = isDisabled);
