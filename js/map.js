@@ -69,8 +69,14 @@ const createMarker = (lat, lng) => {
   ).addTo(map);
 };
 
-const initMap = () => {
+const initMap = (data) => {
   createMainMarker(CITY_INFO.LOCATION.LAT, CITY_INFO.LOCATION.LNG);
+
+  data.forEach((item, index) => {
+    const {lat, lng} = item.location;
+    createMarker(lat, lng);
+  })
+
 };
 
 export {initMap};

@@ -5,7 +5,8 @@ import {form, title, price, capacity} from './form-offer-validate.js';
 import {createObjects} from './utils/data.js';
 import {initMap} from './map.js';
 
-createObjects();
+const offers = createObjects();
+
 formSubmit(form, title, price, capacity);
 
-initMap();
+initMap(offers);
