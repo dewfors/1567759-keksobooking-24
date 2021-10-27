@@ -136,5 +136,5 @@ const createCardElement = (ad) => {
   removeEmptyHtmlElements(cardElement);
 };
 
-createCardElement(similarOffers[1]);
-cardListElement.appendChild(cardListFragment);
+// createCardElement(similarOffers[1]);
+// cardListElement.appendChild(cardListFragment);

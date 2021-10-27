@@ -1,6 +1,9 @@
-import {ElementsClassNames, ElementsStatusClassNames} from './utils/const.js';
+import {ElementsStatusClassNames} from './utils/const.js';
 
 const toggleFormState = (isDisabled = true) => {
+
+  console.log('isDisabled', isDisabled);
+
   const formOffer = document.querySelector('form[data-form-offer=form-access]');
   const formOfferFieldsets = formOffer.children;
 

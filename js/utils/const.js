@@ -1,3 +1,11 @@
+const CITY_INFO = {
+  LOCATION: {
+    LAT: 35.6895,
+    LNG: 139.69171,
+  },
+  ZOOM: 10,
+};
+
 const OfferType = {
   flat: 'Квартира',
   bungalow: 'Бунгало',
@@ -33,6 +41,7 @@ const ElementsStatusClassNames = {
 
 
 export {
+  CITY_INFO,
   OfferType,
   MinPriceByOfferType,
   ElementsClassNames,
