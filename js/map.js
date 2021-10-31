@@ -1,7 +1,8 @@
 import {toggleFormState} from './form.js';
-import {CITY_INFO, MARKER} from './utils/const.js';
+import {COUNT_SIMILSR_OFFERS, CITY_INFO, MARKER} from './utils/const.js';
 import {onChangeAddress} from './form-offer-validate.js';
 import {createCardList} from './similar-offers.js';
+import {getData} from './api.js';
 
 toggleFormState(true);
 
@@ -71,15 +72,46 @@ const createMarker = (lat, lng, popup) => {
     .bindPopup(popup);
 };
 
-const initMap = (data) => {
+const initMainMarker = () => {
   createMainMarker(CITY_INFO.LOCATION.LAT, CITY_INFO.LOCATION.LNG);
+};
 
+const initSimilarMarkers = (data) => {
   const cardList = createCardList(data);
 
   data.forEach((item, index) => {
     const {lat, lng} = item.location;
     createMarker(lat, lng, cardList[index]);
   });
+};
+
+const onSuccessGetData = (data) => {
+  initSimilarMarkers(data.slice(0, COUNT_SIMILSR_OFFERS));
+};
+
+const onFailGetData = (message) => {
+  const notice = document.createElement('div');
+  notice.style.padding = '5px';
+  notice.style.backgroundColor = 'red';
+  notice.style.position = 'absolute';
+  notice.style.top = '0';
+  notice.style.left = '0';
+  notice.style.right = '0';
+  notice.style.color = 'white';
+  notice.style.zIndex = '500';
+  notice.style.fontSize = '13px';
+  notice.style.textAlign = 'center';
+  notice.textContent = message;
+  document.querySelector('main').append(notice);
+
+};
+
+
+const initMap = (data) => {
+  initMainMarker();
+
+  getData(onSuccessGetData, onFailGetData);
+
 };
 
 export {initMap};

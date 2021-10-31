@@ -1,3 +1,6 @@
+
+const COUNT_SIMILSR_OFFERS = 10;
+
 const CITY_INFO = {
   LOCATION: {
     LAT: 35.6895,
@@ -65,6 +68,7 @@ const ElementsStatusClassNames = {
 
 
 export {
+  COUNT_SIMILSR_OFFERS,
   CITY_INFO,
   MARKER,
   OfferType,
