@@ -1,9 +1,14 @@
+
+const COUNT_SIMILSR_OFFERS = 10;
+const DIGITS_COORDINATES = 5;
+
+
 const CITY_INFO = {
   LOCATION: {
     LAT: 35.6895,
     LNG: 139.69171,
   },
-  ZOOM: 10,
+  ZOOM: 12,
 };
 
 const MARKER = {
@@ -56,6 +61,8 @@ const ElementsClassNames = {
   formTimeIn: '#timein',
   formTimeOut: '#timeout',
   formAddress: '#address',
+  buttonSubmit: '.ad-form__submit',
+  buttonReset: '.ad-form__reset',
 };
 
 const ElementsStatusClassNames = {
@@ -63,8 +70,9 @@ const ElementsStatusClassNames = {
   filtersDisabled: 'map__filters--disabled',
 };
 
-
 export {
+  COUNT_SIMILSR_OFFERS,
+  DIGITS_COORDINATES,
   CITY_INFO,
   MARKER,
   OfferType,

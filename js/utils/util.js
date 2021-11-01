@@ -54,8 +54,58 @@ const getRandomiseArray = (array, countOfElements) => {
   return result.slice(0, countOfElements);
 };
 
+const onFailNotice = (message) => {
+  const notice = document.createElement('div');
+  notice.style.padding = '5px';
+  notice.style.backgroundColor = 'red';
+  notice.style.position = 'absolute';
+  notice.style.top = '0';
+  notice.style.left = '0';
+  notice.style.right = '0';
+  notice.style.color = 'white';
+  notice.style.zIndex = '500';
+  notice.style.fontSize = '13px';
+  notice.style.textAlign = 'center';
+  notice.textContent = message;
+  document.querySelector('main').append(notice);
+};
+
+const successNode = document.querySelector('#success')
+  .content.querySelector('.success')
+  .cloneNode(true);
+
+const errorNode = document.querySelector('#error')
+  .content.querySelector('.error')
+  .cloneNode(true);
+
+const bodyElement = document.querySelector('body');
+
+const showNotice = (node) => {
+  const onWindowKeydown = (evt) => {
+    if (evt.key === 'Escape') {
+      node.remove();
+      window.removeEventListener('keydown', onWindowKeydown);
+    }
+  };
+
+  bodyElement.append(node);
+  node.addEventListener('click', () => {
+    node.remove();
+    window.removeEventListener('keydown', onWindowKeydown);
+  });
+
+  window.addEventListener('keydown', onWindowKeydown);
+};
+
+const onSuccessNotice = () => showNotice(successNode);
+const onErrorNotice = () => showNotice(errorNode);
+
+
 export {
   getRandomIntegerFromRange,
   getRandomFloatFromRange,
-  getRandomiseArray
+  getRandomiseArray,
+  onFailNotice,
+  onSuccessNotice,
+  onErrorNotice
 };

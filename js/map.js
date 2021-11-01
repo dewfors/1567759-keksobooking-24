@@ -1,27 +1,8 @@
-import {toggleFormState} from './form.js';
 import {CITY_INFO, MARKER} from './utils/const.js';
 import {onChangeAddress} from './form-offer-validate.js';
 import {createCardList} from './similar-offers.js';
 
-toggleFormState(true);
-
-const onMapLoad = () => {
-  toggleFormState(false);
-};
-
-const map = L.map('map-canvas')
-  .on('load', onMapLoad)
-  .setView({
-    lat: CITY_INFO.LOCATION.LAT,
-    lng: CITY_INFO.LOCATION.LNG,
-  }, CITY_INFO.ZOOM);
-
-L.tileLayer(
-  'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
-  {
-    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-  },
-).addTo(map);
+let map = null;
 
 const mainMarkerIcon = L.icon({
   iconUrl: '../img/main-pin.svg',
@@ -35,25 +16,53 @@ const defaultMarkerIcon = L.icon({
   iconAnchor: MARKER.DEFAULT.getAnchor(),
 });
 
-const createMainMarker = (markerLat, markerLng) => {
-  const marker = L.marker(
+const mainMarker = L.marker(
+  {
+    lat: CITY_INFO.LOCATION.LAT,
+    lng: CITY_INFO.LOCATION.LNG,
+  },
+  {
+    draggable: true,
+    icon: mainMarkerIcon,
+  },
+);
+
+const onMarkerMove = () => {
+  const {lat, lng} = mainMarker.getLatLng();
+  onChangeAddress(lat, lng);
+};
+
+
+const createMap = (cb) => {
+  map = L.map('map-canvas')
+    .on('load', cb)
+    .setView({
+      lat: CITY_INFO.LOCATION.LAT,
+      lng: CITY_INFO.LOCATION.LNG,
+    }, CITY_INFO.ZOOM);
+
+  L.tileLayer(
+    'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
     {
-      lat: markerLat,
-      lng: markerLng,
-    },
-    {
-      draggable: true,
-      icon: mainMarkerIcon,
+      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
     },
   ).addTo(map);
 
-  const onMarkerMove = () => {
-    const {lat, lng} = marker.getLatLng();
-    onChangeAddress(lat, lng);
-  };
-
   onMarkerMove();
-  marker.on('move', onMarkerMove);
+  mainMarker.on('move', onMarkerMove);
+  mainMarker.addTo(map);
+};
+
+const resetMap = () => {
+  map.closePopup();
+  map.setView({
+    lat: CITY_INFO.LOCATION.LAT,
+    lng: CITY_INFO.LOCATION.LNG,
+  }, CITY_INFO.ZOOM);
+  mainMarker.setLatLng({
+    lat: CITY_INFO.LOCATION.LAT,
+    lng: CITY_INFO.LOCATION.LNG,
+  });
 };
 
 const createMarker = (lat, lng, popup) => {
@@ -71,9 +80,7 @@ const createMarker = (lat, lng, popup) => {
     .bindPopup(popup);
 };
 
-const initMap = (data) => {
-  createMainMarker(CITY_INFO.LOCATION.LAT, CITY_INFO.LOCATION.LNG);
-
+const initSimilarMarkers = (data) => {
   const cardList = createCardList(data);
 
   data.forEach((item, index) => {
@@ -82,5 +89,6 @@ const initMap = (data) => {
   });
 };
 
-export {initMap};
+const getMainMarker = () => mainMarker.getLatLng();
 
+export {createMap, resetMap, initSimilarMarkers, getMainMarker};
