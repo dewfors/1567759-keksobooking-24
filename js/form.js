@@ -1,4 +1,5 @@
 import {ElementsStatusClassNames} from './utils/const.js';
+import {sendData} from './api.js';
 
 const form = document.querySelector('form[data-form-offer=form-access]');
 const filter = document.querySelector('form[data-form-filters=form-access]');
@@ -8,9 +9,6 @@ const toggleElementsState = (anyForm, isActive) => {
 };
 
 const toggleFormState = (isActive = true) => {
-
-  console.log(isActive);
-
   toggleElementsState(form, isActive);
   if (isActive) {
     form.classList.remove(ElementsStatusClassNames.formDisabled);
@@ -28,16 +26,17 @@ const toggleFilterState = (isActive = true) => {
   filter.classList.add(ElementsStatusClassNames.filtersDisabled);
 };
 
-// const formSubmit = (form, title, price, capacity) => {
-//   form.addEventListener('submit', (evt) => {
-//     evt.preventDefault();
-//
-//     if (!title.checkValidity() || !price.checkValidity() || !capacity.checkValidity()) {
-//       return null;
-//     }
-//
-//   });
-// };
+const formSubmit = (onSuccess, onError) => {
+  form.addEventListener('submit', (evt) => {
+    evt.preventDefault();
 
-export {toggleFormState, toggleFilterState};
+    sendData(
+      onSuccess,
+      onError,
+      new FormData(evt.target),
+    );
+  });
+};
+
+export {toggleFormState, toggleFilterState, formSubmit};
 // export {toggleFormState, toggleFilterState, formSubmit};

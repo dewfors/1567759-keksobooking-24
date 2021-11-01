@@ -18,41 +18,47 @@ const capacity = form.querySelector(ElementsClassNames.formCapacity);
 const timeIn = form.querySelector(ElementsClassNames.formTimeIn);
 const timeOut = form.querySelector(ElementsClassNames.formTimeOut);
 const address = form.querySelector(ElementsClassNames.formAddress);
+const buttonSubmit = form.querySelector(ElementsClassNames.buttonSubmit);
 const checkLengthTitle = (value, minLength, maxLength) => value.length >= minLength && value.length <= maxLength;
 const getPriceErrorMessage = () => `Цена должна быть от ${priceMin} до ${PRICE_MAX}`;
 const checkLengthPrice = (value, min, max) => value >= min && value <= max;
 const getCapacityErrorMessage = (capacityText, roomCount) => `${roomCount} комната(ы) не подходит ${capacityText}`;
 
+const formValidationFields = [title, price, capacity];
+
+const inputError = true;
+const INPUT_STYLE_ERROR = '1px solid red';
+const INPUT_STYLE = '1px solid #d9d9d3';
+
+const toggleInputError = (element, isActive) => element.style.border = isActive ? INPUT_STYLE_ERROR : INPUT_STYLE;
+
 const showValidationMessage = (element, message) => {
   element.setCustomValidity(message);
   element.classList.add(ERROR_STATE);
+  toggleInputError(element, inputError);
+  element.reportValidity();
 };
 const hideValidationMessage = (element) => {
   element.setCustomValidity('');
   element.classList.remove(ERROR_STATE);
+  toggleInputError(element, !inputError);
 };
 
 const onCheckValidityTitle = () => {
   if (!checkLengthTitle(title.value, TITLE_MIN_LENGTH, TITLE_MAX_LENGTH)) {
     showValidationMessage(title, TITLE_LENGTH_ERROR_MESSAGE);
-  } else {
-    hideValidationMessage(title);
+    return;
   }
-  title.reportValidity();
+  hideValidationMessage(title);
 };
-
-title.addEventListener('input', onCheckValidityTitle);
 
 const onCheckValidityPrice = () => {
   if (!checkLengthPrice(price.value, priceMin, PRICE_MAX)) {
     showValidationMessage(price, getPriceErrorMessage());
-  } else {
-    hideValidationMessage(price);
+    return;
   }
-  price.reportValidity();
+  hideValidationMessage(price);
 };
-
-price.addEventListener('input', onCheckValidityPrice);
 
 const onchangeTypeOffer = (evt) => {
   const selectedIndex = evt.target.options.selectedIndex;
@@ -63,7 +69,6 @@ const onchangeTypeOffer = (evt) => {
 
   onCheckValidityPrice();
 };
-type.addEventListener('change', onchangeTypeOffer);
 
 const onchangeCapacity = (evt) => {
   const selectedIndexCapacity = evt.target.options.selectedIndex;
@@ -73,33 +78,49 @@ const onchangeCapacity = (evt) => {
 
   if (roomCount < ROOMS_MAX && capacityCount > roomCount){
     showValidationMessage(capacity, getCapacityErrorMessage(capacityText, roomCount));
+    return;
   } else if (roomCount < ROOMS_MAX && capacityCount === CAPACITY_NOT_FOR_GUEST) {
     showValidationMessage(capacity, getCapacityErrorMessage(capacityText, roomCount));
+    return;
   } else if (roomCount === ROOMS_MAX && capacityCount !== CAPACITY_NOT_FOR_GUEST) {
     showValidationMessage(capacity, getCapacityErrorMessage(capacityText, roomCount));
-  } else {
-    hideValidationMessage(capacity);
+    return;
   }
 
-  capacity.reportValidity();
+  hideValidationMessage(capacity);
 
 };
-
-capacity.addEventListener('change', onchangeCapacity);
 
 const onchangeTimeIn = (evt, time) => {
   time.selectedIndex = evt.target.options.selectedIndex;
 };
 
-timeIn.addEventListener('change', (evt) => {
-  onchangeTimeIn(evt, timeOut);
-});
-timeOut.addEventListener('change', (evt) => {
-  onchangeTimeIn(evt, timeIn);
-});
-
 const onChangeAddress = (lat, lng) => {
   address.value = `${lat.toFixed(5)}, ${lng.toFixed(5)}`;
+};
+
+const setFormValidation = () => {
+  title.addEventListener('input', onCheckValidityTitle);
+
+  price.addEventListener('input', onCheckValidityPrice);
+
+  type.addEventListener('change', onchangeTypeOffer);
+
+  capacity.addEventListener('change', onchangeCapacity);
+
+  timeIn.addEventListener('change', (evt) => {
+    onchangeTimeIn(evt, timeOut);
+  });
+  timeOut.addEventListener('change', (evt) => {
+    onchangeTimeIn(evt, timeIn);
+  });
+
+  buttonSubmit.addEventListener('click', () => {
+    formValidationFields
+      .filter((elem) => !elem.checkValidity())
+      .forEach((elem) => toggleInputError(elem, inputError));
+  });
+
 };
 
 export {
@@ -108,5 +129,6 @@ export {
   price,
   capacity,
   address,
-  onChangeAddress
+  onChangeAddress,
+  setFormValidation
 };

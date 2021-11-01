@@ -59,6 +59,7 @@ const ElementsClassNames = {
   formTimeIn: '#timein',
   formTimeOut: '#timeout',
   formAddress: '#address',
+  buttonSubmit: '.ad-form__submit',
 };
 
 const ElementsStatusClassNames = {

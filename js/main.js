@@ -1,12 +1,13 @@
 import './similar-offers.js';
-import {toggleFormState, toggleFilterState} from './form.js';
+import {toggleFormState, toggleFilterState, formSubmit} from './form.js';
 import './form-offer-validate.js';
-import {form, title, price, capacity} from './form-offer-validate.js';
+// import {form, title, price, capacity} from './form-offer-validate.js';
 import {createMap, initSimilarMarkers} from './map.js';
-import {onFailGetData} from './utils/util.js';
+import {onFailNotice, onSuccessNotice, onErrorNotice} from './utils/util.js';
 import {COUNT_SIMILSR_OFFERS} from './utils/const.js';
 // import {initMap} from './map.js';
 import {getData} from './api.js';
+import {setFormValidation} from './form-offer-validate.js';
 
 
 // const offers = createObjects();
@@ -24,7 +25,14 @@ const onSuccessGetData = (data) => {
 
 const onMapLoad = () => {
   toggleFormState(true);
-  getData(onSuccessGetData, onFailGetData);
+  setFormValidation();
+  formSubmit(
+    () => {
+      onSuccessNotice();
+    },
+    onErrorNotice,
+  );
+  getData(onSuccessGetData, onFailNotice);
 };
 
 createMap(onMapLoad);

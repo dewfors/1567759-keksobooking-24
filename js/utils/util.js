@@ -54,7 +54,7 @@ const getRandomiseArray = (array, countOfElements) => {
   return result.slice(0, countOfElements);
 };
 
-const onFailGetData = (message) => {
+const onFailNotice = (message) => {
   const notice = document.createElement('div');
   notice.style.padding = '5px';
   notice.style.backgroundColor = 'red';
@@ -68,13 +68,44 @@ const onFailGetData = (message) => {
   notice.style.textAlign = 'center';
   notice.textContent = message;
   document.querySelector('main').append(notice);
-
 };
+
+const successNode = document.querySelector('#success')
+  .content.querySelector('.success')
+  .cloneNode(true);
+
+const errorNode = document.querySelector('#error')
+  .content.querySelector('.error')
+  .cloneNode(true);
+
+const bodyElement = document.querySelector('body');
+
+const showNotice = (node) => {
+  const onWindowKeydown = (evt) => {
+    if (evt.key === 'Escape') {
+      node.remove();
+      window.removeEventListener('keydown', onWindowKeydown);
+    }
+  };
+
+  bodyElement.append(node);
+  node.addEventListener('click', () => {
+    node.remove();
+    window.removeEventListener('keydown', onWindowKeydown);
+  });
+
+  window.addEventListener('keydown', onWindowKeydown);
+};
+
+const onSuccessNotice = () => showNotice(successNode);
+const onErrorNotice = () => showNotice(errorNode);
 
 
 export {
   getRandomIntegerFromRange,
   getRandomFloatFromRange,
   getRandomiseArray,
-  onFailGetData
+  onFailNotice,
+  onSuccessNotice,
+  onErrorNotice
 };
