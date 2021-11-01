@@ -1,28 +1,8 @@
-import {toggleFormState} from './form.js';
-import {COUNT_SIMILSR_OFFERS, CITY_INFO, MARKER} from './utils/const.js';
+import {CITY_INFO, MARKER} from './utils/const.js';
 import {onChangeAddress} from './form-offer-validate.js';
 import {createCardList} from './similar-offers.js';
-import {getData} from './api.js';
 
-toggleFormState(true);
-
-const onMapLoad = () => {
-  toggleFormState(false);
-};
-
-const map = L.map('map-canvas')
-  .on('load', onMapLoad)
-  .setView({
-    lat: CITY_INFO.LOCATION.LAT,
-    lng: CITY_INFO.LOCATION.LNG,
-  }, CITY_INFO.ZOOM);
-
-L.tileLayer(
-  'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
-  {
-    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-  },
-).addTo(map);
+let map = null;
 
 const mainMarkerIcon = L.icon({
   iconUrl: '../img/main-pin.svg',
@@ -36,25 +16,40 @@ const defaultMarkerIcon = L.icon({
   iconAnchor: MARKER.DEFAULT.getAnchor(),
 });
 
-const createMainMarker = (markerLat, markerLng) => {
-  const marker = L.marker(
+const mainMarker = L.marker(
+  {
+    lat: CITY_INFO.LOCATION.LAT,
+    lng: CITY_INFO.LOCATION.LNG,
+  },
+  {
+    draggable: true,
+    icon: mainMarkerIcon,
+  },
+);
+
+const onMarkerMove = () => {
+  const {lat, lng} = mainMarker.getLatLng();
+  onChangeAddress(lat, lng);
+};
+
+const createMap = (cb) => {
+  map = L.map('map-canvas')
+    .on('load', cb)
+    .setView({
+      lat: CITY_INFO.LOCATION.LAT,
+      lng: CITY_INFO.LOCATION.LNG,
+    }, CITY_INFO.ZOOM);
+
+  L.tileLayer(
+    'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
     {
-      lat: markerLat,
-      lng: markerLng,
-    },
-    {
-      draggable: true,
-      icon: mainMarkerIcon,
+      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
     },
   ).addTo(map);
 
-  const onMarkerMove = () => {
-    const {lat, lng} = marker.getLatLng();
-    onChangeAddress(lat, lng);
-  };
-
   onMarkerMove();
-  marker.on('move', onMarkerMove);
+  mainMarker.on('move', onMarkerMove);
+  mainMarker.addTo(map);
 };
 
 const createMarker = (lat, lng, popup) => {
@@ -72,10 +67,6 @@ const createMarker = (lat, lng, popup) => {
     .bindPopup(popup);
 };
 
-const initMainMarker = () => {
-  createMainMarker(CITY_INFO.LOCATION.LAT, CITY_INFO.LOCATION.LNG);
-};
-
 const initSimilarMarkers = (data) => {
   const cardList = createCardList(data);
 
@@ -85,34 +76,4 @@ const initSimilarMarkers = (data) => {
   });
 };
 
-const onSuccessGetData = (data) => {
-  initSimilarMarkers(data.slice(0, COUNT_SIMILSR_OFFERS));
-};
-
-const onFailGetData = (message) => {
-  const notice = document.createElement('div');
-  notice.style.padding = '5px';
-  notice.style.backgroundColor = 'red';
-  notice.style.position = 'absolute';
-  notice.style.top = '0';
-  notice.style.left = '0';
-  notice.style.right = '0';
-  notice.style.color = 'white';
-  notice.style.zIndex = '500';
-  notice.style.fontSize = '13px';
-  notice.style.textAlign = 'center';
-  notice.textContent = message;
-  document.querySelector('main').append(notice);
-
-};
-
-
-const initMap = (data) => {
-  initMainMarker();
-
-  getData(onSuccessGetData, onFailGetData);
-
-};
-
-export {initMap};
-
+export {createMap, initSimilarMarkers};

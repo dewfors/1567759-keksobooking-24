@@ -54,8 +54,27 @@ const getRandomiseArray = (array, countOfElements) => {
   return result.slice(0, countOfElements);
 };
 
+const onFailGetData = (message) => {
+  const notice = document.createElement('div');
+  notice.style.padding = '5px';
+  notice.style.backgroundColor = 'red';
+  notice.style.position = 'absolute';
+  notice.style.top = '0';
+  notice.style.left = '0';
+  notice.style.right = '0';
+  notice.style.color = 'white';
+  notice.style.zIndex = '500';
+  notice.style.fontSize = '13px';
+  notice.style.textAlign = 'center';
+  notice.textContent = message;
+  document.querySelector('main').append(notice);
+
+};
+
+
 export {
   getRandomIntegerFromRange,
   getRandomFloatFromRange,
-  getRandomiseArray
+  getRandomiseArray,
+  onFailGetData
 };

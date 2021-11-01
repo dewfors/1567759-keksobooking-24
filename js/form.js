@@ -1,32 +1,43 @@
 import {ElementsStatusClassNames} from './utils/const.js';
 
-const toggleFormState = (isDisabled = true) => {
-  const formOffer = document.querySelector('form[data-form-offer=form-access]');
-  const formOfferFieldsets = formOffer.children;
+const form = document.querySelector('form[data-form-offer=form-access]');
+const filter = document.querySelector('form[data-form-filters=form-access]');
 
-  const formFilter = document.querySelector('form[data-form-filters=form-access]');
-  const formFilterFields = formFilter.children;
+const toggleElementsState = (anyForm, isActive) => {
+  [...anyForm.children].forEach((fieldset) => fieldset.disabled = !isActive);
+};
 
-  if (isDisabled) {
-    formOffer.classList.add(ElementsStatusClassNames.formDisabled);
-    formFilter.classList.add(ElementsStatusClassNames.filtersDisabled);
-  } else {
-    formOffer.classList.remove(ElementsStatusClassNames.formDisabled);
-    formFilter.classList.remove(ElementsStatusClassNames.filtersDisabled);
+const toggleFormState = (isActive = true) => {
+
+  console.log(isActive);
+
+  toggleElementsState(form, isActive);
+  if (isActive) {
+    form.classList.remove(ElementsStatusClassNames.formDisabled);
+    return;
   }
-
-  [...formOfferFieldsets, ...formFilterFields].forEach((fieldset) => fieldset.disabled = isDisabled);
+  form.classList.add(ElementsStatusClassNames.formDisabled);
 };
 
-const formSubmit = (form, title, price, capacity) => {
-  form.addEventListener('submit', (evt) => {
-    evt.preventDefault();
-
-    if (!title.checkValidity() || !price.checkValidity() || !capacity.checkValidity()) {
-      return null;
-    }
-
-  });
+const toggleFilterState = (isActive = true) => {
+  toggleElementsState(filter, isActive);
+  if (isActive) {
+    filter.classList.remove(ElementsStatusClassNames.filtersDisabled);
+    return;
+  }
+  filter.classList.add(ElementsStatusClassNames.filtersDisabled);
 };
 
-export {toggleFormState, formSubmit};
+// const formSubmit = (form, title, price, capacity) => {
+//   form.addEventListener('submit', (evt) => {
+//     evt.preventDefault();
+//
+//     if (!title.checkValidity() || !price.checkValidity() || !capacity.checkValidity()) {
+//       return null;
+//     }
+//
+//   });
+// };
+
+export {toggleFormState, toggleFilterState};
+// export {toggleFormState, toggleFilterState, formSubmit};

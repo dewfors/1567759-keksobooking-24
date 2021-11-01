@@ -6,7 +6,7 @@ const CITY_INFO = {
     LAT: 35.6895,
     LNG: 139.69171,
   },
-  ZOOM: 10,
+  ZOOM: 12,
 };
 
 const MARKER = {
