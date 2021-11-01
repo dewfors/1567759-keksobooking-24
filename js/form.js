@@ -1,5 +1,7 @@
-import {ElementsStatusClassNames} from './utils/const.js';
+import {ElementsStatusClassNames, DIGITS_COORDINATES} from './utils/const.js';
 import {sendData} from './api.js';
+import {resetMap, getMainMarker} from './map.js';
+import {address, setMinPrice} from './form-offer-validate.js';
 
 const form = document.querySelector('form[data-form-offer=form-access]');
 const filter = document.querySelector('form[data-form-filters=form-access]');
@@ -38,5 +40,14 @@ const formSubmit = (onSuccess, onError) => {
   });
 };
 
-export {toggleFormState, toggleFilterState, formSubmit};
-// export {toggleFormState, toggleFilterState, formSubmit};
+const formReset = () => {
+  resetMap();
+  form.reset();
+  filter.reset();
+  setTimeout(() => {
+    address.value = `${getMainMarker().lat.toFixed(DIGITS_COORDINATES)}, ${getMainMarker().lng.toFixed(DIGITS_COORDINATES)}`;
+    setMinPrice();
+  });
+};
+
+export {toggleFormState, toggleFilterState, formSubmit, formReset};

@@ -32,6 +32,7 @@ const onMarkerMove = () => {
   onChangeAddress(lat, lng);
 };
 
+
 const createMap = (cb) => {
   map = L.map('map-canvas')
     .on('load', cb)
@@ -50,6 +51,18 @@ const createMap = (cb) => {
   onMarkerMove();
   mainMarker.on('move', onMarkerMove);
   mainMarker.addTo(map);
+};
+
+const resetMap = () => {
+  map.closePopup();
+  map.setView({
+    lat: CITY_INFO.LOCATION.LAT,
+    lng: CITY_INFO.LOCATION.LNG,
+  }, CITY_INFO.ZOOM);
+  mainMarker.setLatLng({
+    lat: CITY_INFO.LOCATION.LAT,
+    lng: CITY_INFO.LOCATION.LNG,
+  });
 };
 
 const createMarker = (lat, lng, popup) => {
@@ -76,4 +89,6 @@ const initSimilarMarkers = (data) => {
   });
 };
 
-export {createMap, initSimilarMarkers};
+const getMainMarker = () => mainMarker.getLatLng();
+
+export {createMap, resetMap, initSimilarMarkers, getMainMarker};

@@ -1,4 +1,5 @@
-import {MinPriceByOfferType, ElementsClassNames} from './utils/const.js';
+import {MinPriceByOfferType, ElementsClassNames, DIGITS_COORDINATES} from './utils/const.js';
+import {formReset} from './form.js';
 
 const TITLE_MIN_LENGTH = 30;
 const TITLE_MAX_LENGTH = 100;
@@ -19,6 +20,7 @@ const timeIn = form.querySelector(ElementsClassNames.formTimeIn);
 const timeOut = form.querySelector(ElementsClassNames.formTimeOut);
 const address = form.querySelector(ElementsClassNames.formAddress);
 const buttonSubmit = form.querySelector(ElementsClassNames.buttonSubmit);
+const buttonReset = form.querySelector(ElementsClassNames.buttonReset);
 const checkLengthTitle = (value, minLength, maxLength) => value.length >= minLength && value.length <= maxLength;
 const getPriceErrorMessage = () => `Цена должна быть от ${priceMin} до ${PRICE_MAX}`;
 const checkLengthPrice = (value, min, max) => value >= min && value <= max;
@@ -60,6 +62,10 @@ const onCheckValidityPrice = () => {
   hideValidationMessage(price);
 };
 
+const setMinPrice = () => {
+  price.placeholder = MinPriceByOfferType[type.options[type.options.selectedIndex].value];
+};
+
 const onchangeTypeOffer = (evt) => {
   const selectedIndex = evt.target.options.selectedIndex;
   const selectedValue = evt.target.options[selectedIndex].value;
@@ -96,7 +102,7 @@ const onchangeTimeIn = (evt, time) => {
 };
 
 const onChangeAddress = (lat, lng) => {
-  address.value = `${lat.toFixed(5)}, ${lng.toFixed(5)}`;
+  address.value = `${lat.toFixed(DIGITS_COORDINATES)}, ${lng.toFixed(DIGITS_COORDINATES)}`;
 };
 
 const setFormValidation = () => {
@@ -121,6 +127,10 @@ const setFormValidation = () => {
       .forEach((elem) => toggleInputError(elem, inputError));
   });
 
+  buttonReset.addEventListener('click', () => {
+    formReset();
+  });
+
 };
 
 export {
@@ -130,5 +140,6 @@ export {
   capacity,
   address,
   onChangeAddress,
-  setFormValidation
+  setFormValidation,
+  setMinPrice
 };

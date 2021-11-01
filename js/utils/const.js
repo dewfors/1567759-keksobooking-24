@@ -1,5 +1,7 @@
 
 const COUNT_SIMILSR_OFFERS = 10;
+const DIGITS_COORDINATES = 5;
+
 
 const CITY_INFO = {
   LOCATION: {
@@ -60,6 +62,7 @@ const ElementsClassNames = {
   formTimeOut: '#timeout',
   formAddress: '#address',
   buttonSubmit: '.ad-form__submit',
+  buttonReset: '.ad-form__reset',
 };
 
 const ElementsStatusClassNames = {
@@ -67,9 +70,9 @@ const ElementsStatusClassNames = {
   filtersDisabled: 'map__filters--disabled',
 };
 
-
 export {
   COUNT_SIMILSR_OFFERS,
+  DIGITS_COORDINATES,
   CITY_INFO,
   MARKER,
   OfferType,
