@@ -71,17 +71,30 @@ const compareByPrice = (value, price) => {
   }
 };
 
+const compareByFeatures = (filterFeatures, offerFeatures) => {
+  if (!offerFeatures && filterFeatures.length > 0) { return false; }
+  if (filterFeatures.length === 0) { return true; }
+
+  for (let i = 0; i < filterFeatures.length; i++) {
+    const isExistFeature = offerFeatures.some((feature) => feature === filterFeatures[i]);
+    if (!isExistFeature) { return false; }
+  }
+  return true;
+};
+
 const getFiltredOffers = (offers) => {
-  const features = [...filterOffersFeatures]
+  const filterFeatures = [...filterOffersFeatures]
     .filter((featute) => featute.checked)
     .map((featute) => featute.value);
-  console.log(features);
+  console.log(filterFeatures);
 
   const filtredOffers = offers.slice()
     .filter(
       ({offer}) => compareByType(filterOfferType.value, offer.type) &&
         compareByRoomsOrGuests(filterOfferRooms.value, offer.rooms) &&
-        compareByRoomsOrGuests(filterOfferGuests.value, offer.guests) ,
+        compareByRoomsOrGuests(filterOfferGuests.value, offer.guests) &&
+        compareByPrice(filterOfferPrice.value, offer.price) &&
+        compareByFeatures(filterFeatures, offer.features),
     );
   console.log(filtredOffers);
 
