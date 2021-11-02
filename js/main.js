@@ -1,5 +1,5 @@
 import './similar-offers.js';
-import {toggleFormState, toggleFilterState, formSubmit} from './form.js';
+import {toggleFormState, toggleFilterState, formSubmit, getFiltredOffers, setFilterChange} from './form.js';
 import './form-offer-validate.js';
 import {createMap, initSimilarMarkers} from './map.js';
 import {onFailNotice, onSuccessNotice, onErrorNotice} from './utils/util.js';
@@ -7,12 +7,19 @@ import {COUNT_SIMILSR_OFFERS} from './utils/const.js';
 import {getData} from './api.js';
 import {setFormValidation} from './form-offer-validate.js';
 
+let initialOffers = null;
+
 toggleFormState(false);
 toggleFilterState(false);
 
 const onSuccessGetData = (data) => {
-  initSimilarMarkers(data.slice(0, COUNT_SIMILSR_OFFERS));
+  initialOffers = data.slice(0, COUNT_SIMILSR_OFFERS);
+  initSimilarMarkers(initialOffers);
   toggleFilterState(true);
+
+  setFilterChange(() => {
+    getFiltredOffers(initialOffers);
+  });
 };
 
 const onMapLoad = () => {

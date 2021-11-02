@@ -3,6 +3,7 @@ import {onChangeAddress} from './form-offer-validate.js';
 import {createCardList} from './similar-offers.js';
 
 let map = null;
+let markerGroup = null;
 
 const mainMarkerIcon = L.icon({
   iconUrl: '../img/main-pin.svg',
@@ -83,12 +84,37 @@ const createMarker = (lat, lng, popup) => {
 const initSimilarMarkers = (data) => {
   const cardList = createCardList(data);
 
+  markerGroup = L.layerGroup().addTo(map);
+
+  // data.forEach((item, index) => {
+  //   const {lat, lng} = item.location;
+  //   createMarker(lat, lng, cardList[index]);
+  // });
+  // createMarker(lat, lng, cardList[index]);
+
+
   data.forEach((item, index) => {
     const {lat, lng} = item.location;
-    createMarker(lat, lng, cardList[index]);
+    L.marker(
+      {
+        lat: lat,
+        lng: lng,
+      },
+      {
+        draggable: false,
+        icon: defaultMarkerIcon,
+      },
+    )
+      .addTo(markerGroup)
+      .bindPopup(cardList[index]);
   });
 };
+const removeSimilarMarkers = () => {
+  markerGroup.clearLayers();
+};
+
+
 
 const getMainMarker = () => mainMarker.getLatLng();
 
-export {createMap, resetMap, initSimilarMarkers, getMainMarker};
+export {createMap, resetMap, initSimilarMarkers, removeSimilarMarkers, getMainMarker};
