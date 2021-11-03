@@ -86,7 +86,6 @@ const getFiltredOffers = (offers) => {
   const filterFeatures = [...filterOffersFeatures]
     .filter((featute) => featute.checked)
     .map((featute) => featute.value);
-  console.log(filterFeatures);
 
   const filtredOffers = offers.slice()
     .filter(
@@ -96,7 +95,6 @@ const getFiltredOffers = (offers) => {
         compareByPrice(filterOfferPrice.value, offer.price) &&
         compareByFeatures(filterFeatures, offer.features),
     );
-  console.log(filtredOffers);
 
   removeSimilarMarkers();
   initSimilarMarkers(filtredOffers);
@@ -104,9 +102,6 @@ const getFiltredOffers = (offers) => {
 };
 
 const setFilterChange = (callback) => {
-
-  console.log(callback);
-
   filter.addEventListener('change', () => {
     callback();
   });
