@@ -1,8 +1,9 @@
-import {CITY_INFO, MARKER} from './utils/const.js';
+import {CITY_INFO, MARKER, COUNT_SIMILSR_OFFERS} from './utils/const.js';
 import {onChangeAddress} from './form-offer-validate.js';
 import {createCardList} from './similar-offers.js';
 
 let map = null;
+let markerGroup = null;
 
 const mainMarkerIcon = L.icon({
   iconUrl: '../img/main-pin.svg',
@@ -65,30 +66,32 @@ const resetMap = () => {
   });
 };
 
-const createMarker = (lat, lng, popup) => {
-  L.marker(
-    {
-      lat: lat,
-      lng: lng,
-    },
-    {
-      draggable: false,
-      icon: defaultMarkerIcon,
-    },
-  )
-    .addTo(map)
-    .bindPopup(popup);
-};
-
 const initSimilarMarkers = (data) => {
-  const cardList = createCardList(data);
+  const offers = data.slice(0, COUNT_SIMILSR_OFFERS);
+  const cardList = createCardList(offers);
 
-  data.forEach((item, index) => {
+  markerGroup = L.layerGroup().addTo(map);
+
+  offers.forEach((item, index) => {
     const {lat, lng} = item.location;
-    createMarker(lat, lng, cardList[index]);
+    L.marker(
+      {
+        lat: lat,
+        lng: lng,
+      },
+      {
+        draggable: false,
+        icon: defaultMarkerIcon,
+      },
+    )
+      .addTo(markerGroup)
+      .bindPopup(cardList[index]);
   });
+};
+const removeSimilarMarkers = () => {
+  markerGroup.clearLayers();
 };
 
 const getMainMarker = () => mainMarker.getLatLng();
 
-export {createMap, resetMap, initSimilarMarkers, getMainMarker};
+export {createMap, resetMap, initSimilarMarkers, removeSimilarMarkers, getMainMarker};
