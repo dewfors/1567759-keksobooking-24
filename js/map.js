@@ -1,4 +1,4 @@
-import {CITY_INFO, MARKER} from './utils/const.js';
+import {CITY_INFO, MARKER, COUNT_SIMILSR_OFFERS} from './utils/const.js';
 import {onChangeAddress} from './form-offer-validate.js';
 import {createCardList} from './similar-offers.js';
 
@@ -66,34 +66,13 @@ const resetMap = () => {
   });
 };
 
-const createMarker = (lat, lng, popup) => {
-  L.marker(
-    {
-      lat: lat,
-      lng: lng,
-    },
-    {
-      draggable: false,
-      icon: defaultMarkerIcon,
-    },
-  )
-    .addTo(map)
-    .bindPopup(popup);
-};
-
 const initSimilarMarkers = (data) => {
-  const cardList = createCardList(data);
+  const offers = data.slice(0, COUNT_SIMILSR_OFFERS);
+  const cardList = createCardList(offers);
 
   markerGroup = L.layerGroup().addTo(map);
 
-  // data.forEach((item, index) => {
-  //   const {lat, lng} = item.location;
-  //   createMarker(lat, lng, cardList[index]);
-  // });
-  // createMarker(lat, lng, cardList[index]);
-
-
-  data.forEach((item, index) => {
+  offers.forEach((item, index) => {
     const {lat, lng} = item.location;
     L.marker(
       {
@@ -112,8 +91,6 @@ const initSimilarMarkers = (data) => {
 const removeSimilarMarkers = () => {
   markerGroup.clearLayers();
 };
-
-
 
 const getMainMarker = () => mainMarker.getLatLng();
 

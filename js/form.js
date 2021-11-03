@@ -98,7 +98,6 @@ const getFiltredOffers = (offers) => {
 
   removeSimilarMarkers();
   initSimilarMarkers(filtredOffers);
-
 };
 
 const setFilterChange = (callback) => {
@@ -106,7 +105,6 @@ const setFilterChange = (callback) => {
     callback();
   });
 };
-
 
 const formReset = () => {
   resetMap();
