@@ -3,7 +3,7 @@ import {toggleFormState, toggleFilterState, formSubmit, getFiltredOffers, setFil
 import './form-offer-validate.js';
 import {createMap, initSimilarMarkers} from './map.js';
 import {onFailNotice, onSuccessNotice, onErrorNotice} from './utils/util.js';
-import {COUNT_SIMILSR_OFFERS} from './utils/const.js';
+import {COUNT_SIMILAR_OFFERS} from './utils/const.js';
 import {getData} from './api.js';
 import {setFormValidation} from './form-offer-validate.js';
 import {debounce} from './utils/debounce.js';
@@ -15,7 +15,7 @@ toggleFilterState(false);
 
 const onSuccessGetData = (data) => {
   initialOffers = data.slice();
-  initSimilarMarkers(initialOffers.slice(0, COUNT_SIMILSR_OFFERS));
+  initSimilarMarkers(initialOffers.slice(0, COUNT_SIMILAR_OFFERS));
   toggleFilterState(true);
 
   setFilterChange(

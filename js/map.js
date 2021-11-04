@@ -1,4 +1,4 @@
-import {CITY_INFO, MARKER, COUNT_SIMILSR_OFFERS} from './utils/const.js';
+import {CITY_INFO, MARKER, COUNT_SIMILAR_OFFERS} from './utils/const.js';
 import {onChangeAddress} from './form-offer-validate.js';
 import {createCardList} from './similar-offers.js';
 
@@ -67,7 +67,7 @@ const resetMap = () => {
 };
 
 const initSimilarMarkers = (data) => {
-  const offers = data.slice(0, COUNT_SIMILSR_OFFERS);
+  const offers = data.slice(0, COUNT_SIMILAR_OFFERS);
   const cardList = createCardList(offers);
 
   markerGroup = L.layerGroup().addTo(map);

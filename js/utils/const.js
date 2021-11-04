@@ -1,5 +1,5 @@
 
-const COUNT_SIMILSR_OFFERS = 10;
+const COUNT_SIMILAR_OFFERS = 10;
 const DIGITS_COORDINATES = 5;
 
 
@@ -71,7 +71,7 @@ const ElementsStatusClassNames = {
 };
 
 export {
-  COUNT_SIMILSR_OFFERS,
+  COUNT_SIMILAR_OFFERS,
   DIGITS_COORDINATES,
   CITY_INFO,
   MARKER,
