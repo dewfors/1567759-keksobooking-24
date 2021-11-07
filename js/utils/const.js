@@ -50,8 +50,7 @@ const MinPriceByOfferType = {
   hotel: 3000,
 };
 
-const ElementsClassNames = {
-  errorState: 'error-field',
+const ElementsSelectors = {
   formOffer: 'form.ad-form',
   formTitle: '#title',
   formPrice: '#price',
@@ -65,7 +64,8 @@ const ElementsClassNames = {
   buttonReset: '.ad-form__reset',
 };
 
-const ElementsStatusClassNames = {
+const ElementsStates = {
+  errorState: 'error-field',
   formDisabled: 'ad-form--disabled',
   filtersDisabled: 'map__filters--disabled',
 };
@@ -77,6 +77,6 @@ export {
   MARKER,
   OfferType,
   MinPriceByOfferType,
-  ElementsClassNames,
-  ElementsStatusClassNames
+  ElementsSelectors,
+  ElementsStates
 };

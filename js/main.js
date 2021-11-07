@@ -1,5 +1,5 @@
 import './similar-offers.js';
-import {toggleFormState, toggleFilterState, formSubmit, getFiltredOffers, setFilterChange} from './form.js';
+import {toggleFormState, toggleFilterState, formSubmit, formReset, getFiltredOffers, setFilterChange} from './form.js';
 import './form-offer-validate.js';
 import {createMap, initSimilarMarkers} from './map.js';
 import {onFailNotice, onSuccessNotice, onErrorNotice} from './utils/util.js';
@@ -30,6 +30,7 @@ const onMapLoad = () => {
   formSubmit(
     () => {
       onSuccessNotice();
+      formReset();
     },
     onErrorNotice,
   );

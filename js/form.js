@@ -1,7 +1,7 @@
-import {ElementsStatusClassNames, DIGITS_COORDINATES} from './utils/const.js';
+import {ElementsStates, DIGITS_COORDINATES} from './utils/const.js';
 import {sendData} from './api.js';
 import {resetMap, getMainMarker, initSimilarMarkers, removeSimilarMarkers} from './map.js';
-import {address, setMinPrice} from './form-offer-validate.js';
+import {address, setMinPrice, isFormValid} from './form-offer-validate.js';
 
 const form = document.querySelector('form[data-form-offer=form-access]');
 const filter = document.querySelector('form[data-form-filters=form-access]');
@@ -28,24 +28,28 @@ const toggleElementsState = (anyForm, isActive) => {
 const toggleFormState = (isActive = true) => {
   toggleElementsState(form, isActive);
   if (isActive) {
-    form.classList.remove(ElementsStatusClassNames.formDisabled);
+    form.classList.remove(ElementsStates.formDisabled);
     return;
   }
-  form.classList.add(ElementsStatusClassNames.formDisabled);
+  form.classList.add(ElementsStates.formDisabled);
 };
 
 const toggleFilterState = (isActive = true) => {
   toggleElementsState(filter, isActive);
   if (isActive) {
-    filter.classList.remove(ElementsStatusClassNames.filtersDisabled);
+    filter.classList.remove(ElementsStates.filtersDisabled);
     return;
   }
-  filter.classList.add(ElementsStatusClassNames.filtersDisabled);
+  filter.classList.add(ElementsStates.filtersDisabled);
 };
 
 const formSubmit = (onSuccess, onError) => {
   form.addEventListener('submit', (evt) => {
     evt.preventDefault();
+
+    if (!isFormValid()) {
+      return;
+    }
 
     sendData(
       onSuccess,

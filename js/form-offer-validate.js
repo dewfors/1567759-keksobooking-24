@@ -1,4 +1,4 @@
-import {MinPriceByOfferType, ElementsClassNames, DIGITS_COORDINATES} from './utils/const.js';
+import {MinPriceByOfferType, ElementsSelectors, ElementsStates, DIGITS_COORDINATES} from './utils/const.js';
 import {formReset} from './form.js';
 
 const TITLE_MIN_LENGTH = 30;
@@ -7,20 +7,20 @@ const TITLE_LENGTH_ERROR_MESSAGE = `Заголовок должен быть о�
 const PRICE_MAX = 1000000;
 const ROOMS_MAX = 100;
 const CAPACITY_NOT_FOR_GUEST = 0;
-const ERROR_STATE = ElementsClassNames.errorState;
+const ERROR_STATE = ElementsStates.errorState;
 
 let priceMin = 1000;
-const form = document.querySelector(ElementsClassNames.formOffer);
-const title = form.querySelector(ElementsClassNames.formTitle);
-const price = form.querySelector(ElementsClassNames.formPrice);
-const type = form.querySelector(ElementsClassNames.formType);
-const roomNumber = form.querySelector(ElementsClassNames.formRoomNumber);
-const capacity = form.querySelector(ElementsClassNames.formCapacity);
-const timeIn = form.querySelector(ElementsClassNames.formTimeIn);
-const timeOut = form.querySelector(ElementsClassNames.formTimeOut);
-const address = form.querySelector(ElementsClassNames.formAddress);
-const buttonSubmit = form.querySelector(ElementsClassNames.buttonSubmit);
-const buttonReset = form.querySelector(ElementsClassNames.buttonReset);
+const form = document.querySelector(ElementsSelectors.formOffer);
+const title = form.querySelector(ElementsSelectors.formTitle);
+const price = form.querySelector(ElementsSelectors.formPrice);
+const type = form.querySelector(ElementsSelectors.formType);
+const roomNumber = form.querySelector(ElementsSelectors.formRoomNumber);
+const capacity = form.querySelector(ElementsSelectors.formCapacity);
+const timeIn = form.querySelector(ElementsSelectors.formTimeIn);
+const timeOut = form.querySelector(ElementsSelectors.formTimeOut);
+const address = form.querySelector(ElementsSelectors.formAddress);
+const buttonSubmit = form.querySelector(ElementsSelectors.buttonSubmit);
+const buttonReset = form.querySelector(ElementsSelectors.buttonReset);
 const checkLengthTitle = (value, minLength, maxLength) => value.length >= minLength && value.length <= maxLength;
 const getPriceErrorMessage = () => `Цена должна быть от ${priceMin} до ${PRICE_MAX}`;
 const checkLengthPrice = (value, min, max) => value >= min && value <= max;
@@ -105,6 +105,16 @@ const onChangeAddress = (lat, lng) => {
   address.value = `${lat.toFixed(DIGITS_COORDINATES)}, ${lng.toFixed(DIGITS_COORDINATES)}`;
 };
 
+const isFormValid = () => {
+  let isValid = true;
+  formValidationFields.forEach((elem) => {
+    if (!elem.validity.valid) {
+      isValid = false;
+    }
+  });
+  return isValid;
+};
+
 const setFormValidation = () => {
   title.addEventListener('input', onCheckValidityTitle);
 
@@ -141,5 +151,6 @@ export {
   address,
   onChangeAddress,
   setFormValidation,
-  setMinPrice
+  setMinPrice,
+  isFormValid
 };
