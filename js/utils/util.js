@@ -32,11 +32,7 @@ const getRandomFloatFromRange = (min = 0, max = 10, lengthNumbersAfterDot = 2) =
 
   let randomNumber = 0;
 
-  if (min === max) {
-    randomNumber = min;
-  } else {
-    randomNumber = min + Math.random() * (max - min);
-  }
+  randomNumber = min === max ? min : (min + Math.random() * (max - min));
 
   return getTruncatedNumber(randomNumber, lengthNumbersAfterDot);
 };

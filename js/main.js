@@ -14,8 +14,8 @@ toggleFormState(false);
 toggleFilterState(false);
 
 const onSuccessGetData = (data) => {
-  initialOffers = data.slice();
-  initSimilarMarkers(initialOffers.slice(0, COUNT_SIMILAR_OFFERS));
+  initialOffers = data.slice(0, COUNT_SIMILAR_OFFERS);
+  initSimilarMarkers(initialOffers);
   toggleFilterState(true);
 
   setFilterChange(
