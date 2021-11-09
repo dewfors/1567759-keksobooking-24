@@ -5,13 +5,13 @@ import {housingAddress, setMinPrice, isFormValid} from './form-offer-validate.js
 
 const FILTER_DEFAULT_VALUE = 'any';
 
-const formOffer = document.querySelector('form[data-form-offer=form-access]');
-const formFilter = document.querySelector('form[data-form-filters=form-access]');
-const typeHousingInFilter = formFilter.querySelector('#housing-type');
-const priceInFilter = formFilter.querySelector('#housing-price');
-const numberRoomsInFilter =  formFilter.querySelector('#housing-rooms');
-const numberGuestsInFilter =  formFilter.querySelector('#housing-guests');
-const featuresInFilter = formFilter.querySelectorAll('.map__checkbox');
+const formOfferElement = document.querySelector('form[data-form-offer=form-access]');
+const formFilterElement = document.querySelector('form[data-form-filters=form-access]');
+const typeHousingElement = formFilterElement.querySelector('#housing-type');
+const priceElement = formFilterElement.querySelector('#housing-price');
+const numberRoomsElement =  formFilterElement.querySelector('#housing-rooms');
+const numberGuestsElement =  formFilterElement.querySelector('#housing-guests');
+const featuresElement = formFilterElement.querySelectorAll('.map__checkbox');
 const Price = {
   MIN: 10000,
   MAX: 50000,
@@ -27,25 +27,25 @@ const toggleElementsState = (anyForm, isActive) => {
 };
 
 const toggleFormState = (isActive = true) => {
-  toggleElementsState(formOffer, isActive);
+  toggleElementsState(formOfferElement, isActive);
   if (isActive) {
-    formOffer.classList.remove(ElementsStates.formDisabled);
+    formOfferElement.classList.remove(ElementsStates.formDisabled);
     return;
   }
-  formOffer.classList.add(ElementsStates.formDisabled);
+  formOfferElement.classList.add(ElementsStates.formDisabled);
 };
 
 const toggleFilterState = (isActive = true) => {
-  toggleElementsState(formFilter, isActive);
+  toggleElementsState(formFilterElement, isActive);
   if (isActive) {
-    formFilter.classList.remove(ElementsStates.filtersDisabled);
+    formFilterElement.classList.remove(ElementsStates.filtersDisabled);
     return;
   }
-  formFilter.classList.add(ElementsStates.filtersDisabled);
+  formFilterElement.classList.add(ElementsStates.filtersDisabled);
 };
 
 const formSubmit = (onSuccess, onError) => {
-  formOffer.addEventListener('submit', (evt) => {
+  formOfferElement.addEventListener('submit', (evt) => {
     evt.preventDefault();
 
     if (!isFormValid()) {
@@ -88,16 +88,16 @@ const compareByFeatures = (filterFeatures, offerFeatures) => {
 };
 
 const getFiltredOffers = (offers) => {
-  const filterFeatures = [...featuresInFilter]
+  const filterFeatures = [...featuresElement]
     .filter((featute) => featute.checked)
     .map((featute) => featute.value);
 
   const filtredOffers = offers.slice()
     .filter(
-      ({offer}) => compareByType(typeHousingInFilter.value, offer.type) &&
-        compareByRoomsOrGuests(numberRoomsInFilter.value, offer.rooms) &&
-        compareByRoomsOrGuests(numberGuestsInFilter.value, offer.guests) &&
-        compareByPrice(priceInFilter.value, offer.price) &&
+      ({offer}) => compareByType(typeHousingElement.value, offer.type) &&
+        compareByRoomsOrGuests(numberRoomsElement.value, offer.rooms) &&
+        compareByRoomsOrGuests(numberGuestsElement.value, offer.guests) &&
+        compareByPrice(priceElement.value, offer.price) &&
         compareByFeatures(filterFeatures, offer.features),
     );
 
@@ -106,15 +106,15 @@ const getFiltredOffers = (offers) => {
 };
 
 const setFilterChange = (callback) => {
-  formFilter.addEventListener('change', () => {
+  formFilterElement.addEventListener('change', () => {
     callback();
   });
 };
 
 const formReset = () => {
   resetMap();
-  formOffer.reset();
-  formFilter.reset();
+  formOfferElement.reset();
+  formFilterElement.reset();
   setTimeout(() => {
     housingAddress.value = `${getMainMarker().lat.toFixed(DIGITS_COORDINATES)}, ${getMainMarker().lng.toFixed(DIGITS_COORDINATES)}`;
     setMinPrice();

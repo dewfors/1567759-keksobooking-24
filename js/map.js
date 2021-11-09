@@ -33,7 +33,6 @@ const onMarkerMove = () => {
   onChangeAddress(lat, lng);
 };
 
-
 const createMap = (cb) => {
   map = L.map('map-canvas')
     .on('load', cb)
