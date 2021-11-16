@@ -1,4 +1,4 @@
-import {MinPriceByOfferType, ElementsSelectors, ElementsStates, DIGITS_COORDINATES} from './utils/const.js';
+import {minPriceByOfferType, ElementsSelectors, ElementsStates, DIGITS_COORDINATES} from './utils/const.js';
 import {formReset} from './form.js';
 
 const TITLE_MIN_LENGTH = 30;
@@ -7,22 +7,22 @@ const TITLE_LENGTH_ERROR_MESSAGE = `Заголовок должен быть о�
 const PRICE_MAX = 1000000;
 const ROOMS_MAX = 100;
 const CAPACITY_NOT_FOR_GUEST = 0;
-const ERROR_STATE = ElementsStates.errorState;
+const ERROR_STATE = ElementsStates.ERROR_STATE;
 const INPUT_STYLE_ERROR = '1px solid red';
 const INPUT_STYLE = '1px solid #d9d9d3';
 
 let priceMin = 1000;
-const formOfferElement = document.querySelector(ElementsSelectors.formOffer);
-const titleOfferElement = formOfferElement.querySelector(ElementsSelectors.formTitle);
-const pricePerNightElement = formOfferElement.querySelector(ElementsSelectors.formPrice);
-const typeOfHousingElement = formOfferElement.querySelector(ElementsSelectors.formType);
-const NumberOfRoomsElement = formOfferElement.querySelector(ElementsSelectors.formRoomNumber);
-const numberOfSeatsElement = formOfferElement.querySelector(ElementsSelectors.formCapacity);
-const checkInTimeElement = formOfferElement.querySelector(ElementsSelectors.formTimeIn);
-const checkOutTimeElement = formOfferElement.querySelector(ElementsSelectors.formTimeOut);
-const housingAddressElement = formOfferElement.querySelector(ElementsSelectors.formAddress);
-const buttonSubmit = formOfferElement.querySelector(ElementsSelectors.buttonSubmit);
-const buttonReset = formOfferElement.querySelector(ElementsSelectors.buttonReset);
+const formOfferElement = document.querySelector(ElementsSelectors.FORM_OFFER);
+const titleOfferElement = formOfferElement.querySelector(ElementsSelectors.FORM_TITLE);
+const pricePerNightElement = formOfferElement.querySelector(ElementsSelectors.FORM_PRICE);
+const typeOfHousingElement = formOfferElement.querySelector(ElementsSelectors.FORM_TYPE);
+const NumberOfRoomsElement = formOfferElement.querySelector(ElementsSelectors.FORM_ROOM_NUMBER);
+const numberOfSeatsElement = formOfferElement.querySelector(ElementsSelectors.FORM_CAPACITY);
+const checkInTimeElement = formOfferElement.querySelector(ElementsSelectors.FORM_TIME_IN);
+const checkOutTimeElement = formOfferElement.querySelector(ElementsSelectors.FORM_TIME_OUT);
+const housingAddressElement = formOfferElement.querySelector(ElementsSelectors.FORM_ADDRESS);
+const buttonSubmit = formOfferElement.querySelector(ElementsSelectors.BUTTON_SUBMIT);
+const buttonReset = formOfferElement.querySelector(ElementsSelectors.BUTTON_RESET);
 const checkLengthTitle = (value, minLength, maxLength) => value.length >= minLength && value.length <= maxLength;
 const getPriceErrorMessage = () => `Цена должна быть от ${priceMin} до ${PRICE_MAX}`;
 const checkLengthPrice = (value, min, max) => value >= min && value <= max;
@@ -62,7 +62,7 @@ const onCheckValidityPrice = () => {
 };
 
 const setMinPrice = () => {
-  pricePerNightElement.placeholder = MinPriceByOfferType[typeOfHousingElement.options[typeOfHousingElement.options.selectedIndex].value];
+  pricePerNightElement.placeholder = minPriceByOfferType[typeOfHousingElement.options[typeOfHousingElement.options.selectedIndex].value];
 };
 
 const onInputTitle = () => onCheckValidityTitle();
@@ -72,8 +72,8 @@ const onChangeTypeHousing = (evt) => {
   const selectedIndex = evt.target.options.selectedIndex;
   const selectedValue = evt.target.options[selectedIndex].value;
 
-  pricePerNightElement.placeholder = MinPriceByOfferType[selectedValue];
-  priceMin = MinPriceByOfferType[selectedValue];
+  pricePerNightElement.placeholder = minPriceByOfferType[selectedValue];
+  priceMin = minPriceByOfferType[selectedValue];
 
   onCheckValidityPrice();
 };

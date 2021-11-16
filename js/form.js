@@ -29,19 +29,19 @@ const toggleElementsState = (anyForm, isActive) => {
 const toggleFormState = (isActive = true) => {
   toggleElementsState(formOfferElement, isActive);
   if (isActive) {
-    formOfferElement.classList.remove(ElementsStates.formDisabled);
+    formOfferElement.classList.remove(ElementsStates.FORM_DISABLED);
     return;
   }
-  formOfferElement.classList.add(ElementsStates.formDisabled);
+  formOfferElement.classList.add(ElementsStates.FORM_DISABLED);
 };
 
 const toggleFilterState = (isActive = true) => {
   toggleElementsState(formFilterElement, isActive);
   if (isActive) {
-    formFilterElement.classList.remove(ElementsStates.filtersDisabled);
+    formFilterElement.classList.remove(ElementsStates.FILTERS_DISABLED);
     return;
   }
-  formFilterElement.classList.add(ElementsStates.filtersDisabled);
+  formFilterElement.classList.add(ElementsStates.FILTERS_DISABLED);
 };
 
 const formSubmit = (onSuccess, onError) => {

@@ -11,38 +11,38 @@ const CITY_INFO = {
   ZOOM: 12,
 };
 
-const MARKER = {
-  MAIN: {
-    WIDTH: 52,
-    HEIGHT: 52,
+const marker = {
+  main: {
+    width: 52,
+    height: 52,
     getSize () {
-      return [this.WIDTH, this.HEIGHT];
+      return [this.width, this.height];
     },
     getAnchor () {
-      return [this.WIDTH / 2, this.HEIGHT];
+      return [this.width / 2, this.height];
     },
   },
   DEFAULT: {
-    WIDTH: 40,
-    HEIGHT: 40,
+    width: 40,
+    height: 40,
     getSize () {
-      return [this.WIDTH, this.HEIGHT];
+      return [this.width, this.height];
     },
     getAnchor () {
-      return [this.WIDTH / 2, this.HEIGHT];
+      return [this.width / 2, this.height];
     },
   },
 };
 
 const OfferType = {
-  flat: 'Квартира',
-  bungalow: 'Бунгало',
-  house: 'Дом',
-  palace: 'Дворец',
-  hotel: 'Отель',
+  FLAT: 'Квартира',
+  BUNGALOW: 'Бунгало',
+  HOUSE: 'Дом',
+  PALACE: 'Дворец',
+  HOTEL: 'Отель',
 };
 
-const MinPriceByOfferType = {
+const minPriceByOfferType = {
   flat: 1000,
   bungalow: 0,
   house: 5000,
@@ -51,32 +51,32 @@ const MinPriceByOfferType = {
 };
 
 const ElementsSelectors = {
-  formOffer: 'form.ad-form',
-  formTitle: '#title',
-  formPrice: '#price',
-  formType: '#type',
-  formRoomNumber: '#room_number',
-  formCapacity: '#capacity',
-  formTimeIn: '#timein',
-  formTimeOut: '#timeout',
-  formAddress: '#address',
-  buttonSubmit: '.ad-form__submit',
-  buttonReset: '.ad-form__reset',
+  FORM_OFFER: 'form.ad-form',
+  FORM_TITLE: '#title',
+  FORM_PRICE: '#price',
+  FORM_TYPE: '#type',
+  FORM_ROOM_NUMBER: '#room_number',
+  FORM_CAPACITY: '#capacity',
+  FORM_TIME_IN: '#timein',
+  FORM_TIME_OUT: '#timeout',
+  FORM_ADDRESS: '#address',
+  BUTTON_SUBMIT: '.ad-form__submit',
+  BUTTON_RESET: '.ad-form__reset',
 };
 
 const ElementsStates = {
-  errorState: 'error-field',
-  formDisabled: 'ad-form--disabled',
-  filtersDisabled: 'map__filters--disabled',
+  ERROR_STATE: 'error-field',
+  FORM_DISABLED: 'ad-form--disabled',
+  FILTERS_DISABLED: 'map__filters--disabled',
 };
 
 export {
   COUNT_SIMILAR_OFFERS,
   DIGITS_COORDINATES,
   CITY_INFO,
-  MARKER,
+  marker,
   OfferType,
-  MinPriceByOfferType,
+  minPriceByOfferType,
   ElementsSelectors,
   ElementsStates
 };

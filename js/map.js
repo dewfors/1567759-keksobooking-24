@@ -1,4 +1,4 @@
-import {CITY_INFO, MARKER} from './utils/const.js';
+import {CITY_INFO, marker} from './utils/const.js';
 import {onChangeAddress} from './form-offer-validate.js';
 import {createCardList} from './similar-offers.js';
 
@@ -7,14 +7,14 @@ let markerGroup = null;
 
 const mainMarkerIcon = L.icon({
   iconUrl: '../img/main-pin.svg',
-  iconSize: MARKER.MAIN.getSize(),
-  iconAnchor: MARKER.MAIN.getAnchor(),
+  iconSize: marker.main.getSize(),
+  iconAnchor: marker.main.getAnchor(),
 });
 
 const defaultMarkerIcon = L.icon({
   iconUrl: '../img/pin.svg',
-  iconSize: MARKER.DEFAULT.getSize(),
-  iconAnchor: MARKER.DEFAULT.getAnchor(),
+  iconSize: marker.DEFAULT.getSize(),
+  iconAnchor: marker.DEFAULT.getAnchor(),
 });
 
 const mainMarker = L.marker(
