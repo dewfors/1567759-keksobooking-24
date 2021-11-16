@@ -1,17 +1,9 @@
 import {ElementsStates, DIGITS_COORDINATES} from './utils/const.js';
 import {sendData} from './api.js';
 import {resetMap, getMainMarker, initSimilarMarkers, removeSimilarMarkers} from './map.js';
-import {housingAddress, setMinPrice, isFormValid} from './form-offer-validate.js';
+import {housingAddressElement, setMinPrice, isFormValid} from './form-offer-validate.js';
 
 const FILTER_DEFAULT_VALUE = 'any';
-
-const formOfferElement = document.querySelector('form[data-form-offer=form-access]');
-const formFilterElement = document.querySelector('form[data-form-filters=form-access]');
-const typeHousingElement = formFilterElement.querySelector('#housing-type');
-const priceElement = formFilterElement.querySelector('#housing-price');
-const numberRoomsElement =  formFilterElement.querySelector('#housing-rooms');
-const numberGuestsElement =  formFilterElement.querySelector('#housing-guests');
-const featuresElement = formFilterElement.querySelectorAll('.map__checkbox');
 const Price = {
   MIN: 10000,
   MAX: 50000,
@@ -21,6 +13,14 @@ const PriceScale = {
   MIDDLE: 'middle',
   HIGH: 'high',
 };
+
+const formOfferElement = document.querySelector('form[data-form-offer=form-access]');
+const formFilterElement = document.querySelector('form[data-form-filters=form-access]');
+const typeHousingElement = formFilterElement.querySelector('#housing-type');
+const priceElement = formFilterElement.querySelector('#housing-price');
+const numberRoomsElement =  formFilterElement.querySelector('#housing-rooms');
+const numberGuestsElement =  formFilterElement.querySelector('#housing-guests');
+const featuresElements = formFilterElement.querySelectorAll('.map__checkbox');
 
 const toggleElementsState = (anyForm, isActive) => {
   [...anyForm.children].forEach((fieldset) => fieldset.disabled = !isActive);
@@ -88,7 +88,7 @@ const compareByFeatures = (filterFeatures, offerFeatures) => {
 };
 
 const getFiltredOffers = (offers) => {
-  const filterFeatures = [...featuresElement]
+  const filterFeatures = [...featuresElements]
     .filter((featute) => featute.checked)
     .map((featute) => featute.value);
 
@@ -116,7 +116,7 @@ const formReset = () => {
   formOfferElement.reset();
   formFilterElement.reset();
   setTimeout(() => {
-    housingAddress.value = `${getMainMarker().lat.toFixed(DIGITS_COORDINATES)}, ${getMainMarker().lng.toFixed(DIGITS_COORDINATES)}`;
+    housingAddressElement.value = `${getMainMarker().lat.toFixed(DIGITS_COORDINATES)}, ${getMainMarker().lng.toFixed(DIGITS_COORDINATES)}`;
     setMinPrice();
   });
 };

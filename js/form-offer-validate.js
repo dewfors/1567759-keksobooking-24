@@ -12,23 +12,23 @@ const INPUT_STYLE_ERROR = '1px solid red';
 const INPUT_STYLE = '1px solid #d9d9d3';
 
 let priceMin = 1000;
-const formOffer = document.querySelector(ElementsSelectors.formOffer);
-const titleOffer = formOffer.querySelector(ElementsSelectors.formTitle);
-const pricePerNight = formOffer.querySelector(ElementsSelectors.formPrice);
-const typeOfHousing = formOffer.querySelector(ElementsSelectors.formType);
-const NumberOfRooms = formOffer.querySelector(ElementsSelectors.formRoomNumber);
-const numberOfSeats = formOffer.querySelector(ElementsSelectors.formCapacity);
-const checkInTime = formOffer.querySelector(ElementsSelectors.formTimeIn);
-const checkOutTime = formOffer.querySelector(ElementsSelectors.formTimeOut);
-const housingAddress = formOffer.querySelector(ElementsSelectors.formAddress);
-const buttonSubmit = formOffer.querySelector(ElementsSelectors.buttonSubmit);
-const buttonReset = formOffer.querySelector(ElementsSelectors.buttonReset);
+const formOfferElement = document.querySelector(ElementsSelectors.formOffer);
+const titleOfferElement = formOfferElement.querySelector(ElementsSelectors.formTitle);
+const pricePerNightElement = formOfferElement.querySelector(ElementsSelectors.formPrice);
+const typeOfHousingElement = formOfferElement.querySelector(ElementsSelectors.formType);
+const NumberOfRoomsElement = formOfferElement.querySelector(ElementsSelectors.formRoomNumber);
+const numberOfSeatsElement = formOfferElement.querySelector(ElementsSelectors.formCapacity);
+const checkInTimeElement = formOfferElement.querySelector(ElementsSelectors.formTimeIn);
+const checkOutTimeElement = formOfferElement.querySelector(ElementsSelectors.formTimeOut);
+const housingAddressElement = formOfferElement.querySelector(ElementsSelectors.formAddress);
+const buttonSubmit = formOfferElement.querySelector(ElementsSelectors.buttonSubmit);
+const buttonReset = formOfferElement.querySelector(ElementsSelectors.buttonReset);
 const checkLengthTitle = (value, minLength, maxLength) => value.length >= minLength && value.length <= maxLength;
 const getPriceErrorMessage = () => `Цена должна быть от ${priceMin} до ${PRICE_MAX}`;
 const checkLengthPrice = (value, min, max) => value >= min && value <= max;
 const getCapacityErrorMessage = (capacityText, roomCount) => `${roomCount} комната(ы) не подходит ${capacityText}`;
 
-const formValidationFields = [titleOffer, pricePerNight, numberOfSeats];
+const formValidationFields = [titleOfferElement, pricePerNightElement, numberOfSeatsElement];
 const inputError = true;
 
 const toggleInputError = (element, isActive) => element.style.border = isActive ? INPUT_STYLE_ERROR : INPUT_STYLE;
@@ -46,23 +46,23 @@ const hideValidationMessage = (element) => {
 };
 
 const onCheckValidityTitle = () => {
-  if (!checkLengthTitle(titleOffer.value, TITLE_MIN_LENGTH, TITLE_MAX_LENGTH)) {
-    showValidationMessage(titleOffer, TITLE_LENGTH_ERROR_MESSAGE);
+  if (!checkLengthTitle(titleOfferElement.value, TITLE_MIN_LENGTH, TITLE_MAX_LENGTH)) {
+    showValidationMessage(titleOfferElement, TITLE_LENGTH_ERROR_MESSAGE);
     return;
   }
-  hideValidationMessage(titleOffer);
+  hideValidationMessage(titleOfferElement);
 };
 
 const onCheckValidityPrice = () => {
-  if (!checkLengthPrice(pricePerNight.value, priceMin, PRICE_MAX)) {
-    showValidationMessage(pricePerNight, getPriceErrorMessage());
+  if (!checkLengthPrice(pricePerNightElement.value, priceMin, PRICE_MAX)) {
+    showValidationMessage(pricePerNightElement, getPriceErrorMessage());
     return;
   }
-  hideValidationMessage(pricePerNight);
+  hideValidationMessage(pricePerNightElement);
 };
 
 const setMinPrice = () => {
-  pricePerNight.placeholder = MinPriceByOfferType[typeOfHousing.options[typeOfHousing.options.selectedIndex].value];
+  pricePerNightElement.placeholder = MinPriceByOfferType[typeOfHousingElement.options[typeOfHousingElement.options.selectedIndex].value];
 };
 
 const onInputTitle = () => onCheckValidityTitle();
@@ -72,7 +72,7 @@ const onChangeTypeHousing = (evt) => {
   const selectedIndex = evt.target.options.selectedIndex;
   const selectedValue = evt.target.options[selectedIndex].value;
 
-  pricePerNight.placeholder = MinPriceByOfferType[selectedValue];
+  pricePerNightElement.placeholder = MinPriceByOfferType[selectedValue];
   priceMin = MinPriceByOfferType[selectedValue];
 
   onCheckValidityPrice();
@@ -82,30 +82,30 @@ const onChangeCapacity = (evt) => {
   const selectedIndexCapacity = evt.target.options.selectedIndex;
   const capacityCount = Number(evt.target.options[selectedIndexCapacity].value);
   const capacityText = evt.target.options[selectedIndexCapacity].text;
-  const roomCount = Number(NumberOfRooms.options[NumberOfRooms.options.selectedIndex].value);
+  const roomCount = Number(NumberOfRoomsElement.options[NumberOfRoomsElement.options.selectedIndex].value);
 
   if (roomCount < ROOMS_MAX && capacityCount > roomCount){
-    showValidationMessage(numberOfSeats, getCapacityErrorMessage(capacityText, roomCount));
+    showValidationMessage(numberOfSeatsElement, getCapacityErrorMessage(capacityText, roomCount));
     return;
   } else if (roomCount < ROOMS_MAX && capacityCount === CAPACITY_NOT_FOR_GUEST) {
-    showValidationMessage(numberOfSeats, getCapacityErrorMessage(capacityText, roomCount));
+    showValidationMessage(numberOfSeatsElement, getCapacityErrorMessage(capacityText, roomCount));
     return;
   } else if (roomCount === ROOMS_MAX && capacityCount !== CAPACITY_NOT_FOR_GUEST) {
-    showValidationMessage(numberOfSeats, getCapacityErrorMessage(capacityText, roomCount));
+    showValidationMessage(numberOfSeatsElement, getCapacityErrorMessage(capacityText, roomCount));
     return;
   }
-  hideValidationMessage(numberOfSeats);
+  hideValidationMessage(numberOfSeatsElement);
 };
 
 const onChangeCheckInTime = (evt) => {
-  checkOutTime.selectedIndex = evt.target.options.selectedIndex;
+  checkOutTimeElement.selectedIndex = evt.target.options.selectedIndex;
 };
 const onChangeCheckOutTime = (evt) => {
-  checkInTime.selectedIndex = evt.target.options.selectedIndex;
+  checkInTimeElement.selectedIndex = evt.target.options.selectedIndex;
 };
 
 const onChangeAddress = (lat, lng) => {
-  housingAddress.value = `${lat.toFixed(DIGITS_COORDINATES)}, ${lng.toFixed(DIGITS_COORDINATES)}`;
+  housingAddressElement.value = `${lat.toFixed(DIGITS_COORDINATES)}, ${lng.toFixed(DIGITS_COORDINATES)}`;
 };
 
 const isFormValid = () => {
@@ -119,13 +119,13 @@ const isFormValid = () => {
 };
 
 const setFormValidation = () => {
-  titleOffer.addEventListener('input', onInputTitle);
-  pricePerNight.addEventListener('input', onInputPrice);
-  typeOfHousing.addEventListener('change', onChangeTypeHousing);
-  numberOfSeats.addEventListener('change', onChangeCapacity);
+  titleOfferElement.addEventListener('input', onInputTitle);
+  pricePerNightElement.addEventListener('input', onInputPrice);
+  typeOfHousingElement.addEventListener('change', onChangeTypeHousing);
+  numberOfSeatsElement.addEventListener('change', onChangeCapacity);
 
-  checkInTime.addEventListener('change', onChangeCheckInTime);
-  checkOutTime.addEventListener('change', onChangeCheckOutTime);
+  checkInTimeElement.addEventListener('change', onChangeCheckInTime);
+  checkOutTimeElement.addEventListener('change', onChangeCheckOutTime);
 
   buttonSubmit.addEventListener('click', () => {
     formValidationFields
@@ -140,11 +140,11 @@ const setFormValidation = () => {
 };
 
 export {
-  formOffer,
-  titleOffer,
-  pricePerNight,
-  numberOfSeats,
-  housingAddress,
+  formOfferElement,
+  titleOfferElement,
+  pricePerNightElement,
+  numberOfSeatsElement,
+  housingAddressElement,
   onChangeAddress,
   setFormValidation,
   setMinPrice,

@@ -40,14 +40,14 @@ const getRandomFloatFromRange = (min = 0, max = 10, lengthNumbersAfterDot = 2) =
 const getRandomiseArray = (array, countOfElements) => {
   const copyArray = array.slice();
 
-  const result = [];
+  const items = [];
   while (copyArray.length > 0) {
     const random = getRandomIntegerFromRange(0, copyArray.length-1);
     const elem = copyArray.splice(random, 1)[0];
-    result.push(elem);
+    items.push(elem);
   }
 
-  return result.slice(0, countOfElements);
+  return items.slice(0, countOfElements);
 };
 
 const onFailNotice = (message) => {
