@@ -20,7 +20,7 @@ const typeHousingElement = formFilterElement.querySelector('#housing-type');
 const priceElement = formFilterElement.querySelector('#housing-price');
 const numberRoomsElement =  formFilterElement.querySelector('#housing-rooms');
 const numberGuestsElement =  formFilterElement.querySelector('#housing-guests');
-const featuresElements = formFilterElement.querySelectorAll('.map__checkbox');
+const formCheckboxElements = formFilterElement.querySelectorAll('.map__checkbox');
 
 const toggleElementsState = (anyForm, isActive) => {
   [...anyForm.children].forEach((fieldset) => fieldset.disabled = !isActive);
@@ -88,7 +88,7 @@ const compareByFeatures = (filterFeatures, offerFeatures) => {
 };
 
 const getFiltredOffers = (offers) => {
-  const filterFeatures = [...featuresElements]
+  const filterFeatures = [...formCheckboxElements]
     .filter((featute) => featute.checked)
     .map((featute) => featute.value);
 
